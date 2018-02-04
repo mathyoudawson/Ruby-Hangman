@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-
+require 'colorize'
 class GuessGame
   INITIAL_LIVES = 5
   WORDS = ["aardvark", "laptop", "badger", "elephant", "populate", "tomato", "potato"]
@@ -64,33 +64,33 @@ class GuessGame
         scan_array = hidden_word.scan(char) #returns array of all occurances of char in hidden_word
         scan_counter = scan_array.size #TODO: add multiple instances of a correct guess
 
-        puts "Correct guess: #{char}"
+        puts "Correct guess: #{char}".green
         puts "Current status #{@guess_array.join("")}\n\n"
         #puts @guess
       else
-        puts "Incorrect guess: #{char}"
+        puts "Incorrect guess: #{char}".red
         lose_life
         puts "You have #{@lives} lives left\n\n"
         if @lives < 1
-        puts "Bruh you dead... you only got to #{@guess_array.join("")}"
-        puts "Word was #{hidden_word} \n\n"
+        puts "Bruh you dead... you only got to #{@guess_array.join("")}".red
+        puts "Word was #{hidden_word} \n\n".red
         print  "  +---+-
   |   |
   |   0
   |   |\\
   |   /\\
--+----------"
+-+----------".red
           break
         end
       end
       if @guess_array.include?("_") == false
-        puts "You win!"
-        puts "Word was #{hidden_word}"
+        puts "You win!".green
+        puts "Word was #{hidden_word}".green
         puts "
            (@)
            ^\\|
             |/^
-        ____|_____"
+        ____|_____".green
       end
     end
   end
