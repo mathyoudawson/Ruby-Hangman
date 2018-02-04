@@ -12,7 +12,8 @@ class GuessGame
   end
 
   def set_hidden_word
-    WORDS.first # TODO: make rando
+   WORDS.sample # TODO: make rando
+
   end
 
   def convert_hidden_word(word)
@@ -42,14 +43,14 @@ class GuessGame
     sleep 0.27
     puts "66%"
     sleep 0.42
-    puts "100% Game Loaded"
+    puts "100% Game Loaded\n\n"
     hidden_word = set_hidden_word #grabs my pseudo rando word
     convert_hidden_word(hidden_word)
     #set_guess_array(hidden_word.size, @guess_array) #set array with underscore that shares same length as word i am guessing :p
     puts "You start with #{INITIAL_LIVES} lives"
 
     loop do
-      puts "Enter a guess: \n"
+      puts "Enter a guess: \n\n"
       char = gets.chomp.downcase
 
       while char.size > 1 || char.size < 0 #checks that input is a single character
@@ -64,24 +65,25 @@ class GuessGame
         scan_counter = scan_array.size #TODO: add multiple instances of a correct guess
 
         puts "Correct guess: #{char}"
-        puts "Current status #{@guess_array.join("")}"
+        puts "Current status #{@guess_array.join("")}\n\n"
         #puts @guess
       else
         puts "Incorrect guess: #{char}"
         lose_life
-        puts "You have #{@lives} lives left"
+        puts "You have #{@lives} lives left\n\n"
         if @lives < 1
         puts "Bruh you dead... you only got to #{@guess_array.join("")}"
-        puts  " +---+-
-                |   |
-                |   0
-                |   |\\
-                |   /\\
-              -+----------"
+        puts "Word was #{hidden_word} \n\n"
+        print  "  +---+-
+  |   |
+  |   0
+  |   |\\
+  |   /\\
+-+----------"
           break
         end
       end
-      if @guess_array.include?("_") == true
+      if @guess_array.include?("_") == false
         puts "You win!"
         puts "Word was #{hidden_word}"
         puts "
