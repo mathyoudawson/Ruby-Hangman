@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'colorize'
+
 class GuessGame
   INITIAL_LIVES = 5
   WORDS = ["aardvark", "laptop", "badger", "elephant", "populate", "tomato", "potato"]
@@ -49,7 +50,7 @@ class GuessGame
     #set_guess_array(hidden_word.size, @guess_array) #set array with underscore that shares same length as word i am guessing :p
     puts "You start with #{INITIAL_LIVES} lives"
 
-    loop do
+    while do
       puts "Enter a guess: \n\n"
       char = gets.chomp.downcase
 
@@ -59,10 +60,13 @@ class GuessGame
       end
 
       if hidden_word.include?(char)
-        index = hidden_word.index(char)
-        @guess_array[index] = char
-        scan_array = hidden_word.scan(char) #returns array of all occurances of char in hidden_word
-        scan_counter = scan_array.size #TODO: add multiple instances of a correct guess
+        #index = hidden_word.index(char)
+        #@guess_array[index] = char
+        char_instances = (0 ... hidden_word.length).find_all { |i| hidden_word[i,1] == char }
+        char_instances.each do |index|
+          @guess_array[index] = char
+        end
+
 
         puts "Correct guess: #{char}".green
         puts "Current status #{@guess_array.join("")}\n\n"
@@ -72,22 +76,24 @@ class GuessGame
         lose_life
         puts "You have #{@lives} lives left\n\n"
         if @lives < 1
-        puts "Bruh you dead... you only got to #{@guess_array.join("")}".red
-        puts "Word was #{hidden_word} \n\n".red
-        print  "  +---+-
-  |   |
-  |   0
-  |   |\\
-  |   /\\
--+----------".red
-          break
+          puts "Bruh you dead... you only got to #{@guess_array.join("")}".red
+          puts "Word was #{hidden_word} \n\n".red #TODO: map.with_index
+          print
+                "  +---+-
+                  |   |
+                  |   0
+                  |   |\\
+                  |   /\\
+                -+----------".red
+            #break
+            not_dead = 1
         end
       end
       if @guess_array.include?("_") == false
         puts "You win!".green
         puts "Word was #{hidden_word}".green
-        puts "
-           (@)
+        puts
+        "   (@)
            ^\\|
             |/^
         ____|_____".green
@@ -98,3 +104,27 @@ end
 
 instance = GuessGame.new
 instance.play_game
+
+# class x
+#   ccc
+#   def select_random_word
+#     retrun x
+#   end
+#   def select_word
+#     @target_word = select_random_word
+#   end
+#   def get_input
+#     @user_input = gets.chomp
+#   end
+#   def validate_user_input(input)
+#     rules here
+#   end
+#   def get_and_validate_user_input
+#     validate_user_input(get_input)
+#   end
+# 
+# end
+#
+# # select_word
+# # get_and_validate_user_input
+# # show_results
