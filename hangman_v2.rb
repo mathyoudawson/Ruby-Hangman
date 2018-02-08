@@ -1,5 +1,6 @@
-class Game
+#!/usr/bin/env ruby
 
+class Game
 
    def initialize(lives)
       @lives = lives
