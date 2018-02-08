@@ -14,7 +14,6 @@ class GuessGame
 
   def set_hidden_word
    WORDS.sample # TODO: make rando
-
   end
 
   def convert_hidden_word(word)
@@ -28,12 +27,6 @@ class GuessGame
     end
 
   end
-
-#  def set_guess_array (length, arr) #
-  #  puts length
-  #  puts arr
-
-  #end
 
   def play_game
     @lives = INITIAL_LIVES
@@ -50,7 +43,7 @@ class GuessGame
     #set_guess_array(hidden_word.size, @guess_array) #set array with underscore that shares same length as word i am guessing :p
     puts "You start with #{INITIAL_LIVES} lives"
 
-    while do
+    loop do
       puts "Enter a guess: \n\n"
       char = gets.chomp.downcase
 
@@ -66,11 +59,9 @@ class GuessGame
         char_instances.each do |index|
           @guess_array[index] = char
         end
-
-
         puts "Correct guess: #{char}".green
         puts "Current status #{@guess_array.join("")}\n\n"
-        #puts @guess
+
       else
         puts "Incorrect guess: #{char}".red
         lose_life
@@ -78,22 +69,19 @@ class GuessGame
         if @lives < 1
           puts "Bruh you dead... you only got to #{@guess_array.join("")}".red
           puts "Word was #{hidden_word} \n\n".red #TODO: map.with_index
-          print
-                "  +---+-
-                  |   |
-                  |   0
-                  |   |\\
-                  |   /\\
-                -+----------".red
+          print" +---+-
+   |   |
+   |   0
+   |   |\\
+   |   /\\
+  -+----------".red
             #break
-            not_dead = 1
         end
       end
       if @guess_array.include?("_") == false
         puts "You win!".green
         puts "Word was #{hidden_word}".green
-        puts
-        "   (@)
+        puts"   (@)
            ^\\|
             |/^
         ____|_____".green
@@ -122,7 +110,7 @@ instance.play_game
 #   def get_and_validate_user_input
 #     validate_user_input(get_input)
 #   end
-# 
+#
 # end
 #
 # # select_word
